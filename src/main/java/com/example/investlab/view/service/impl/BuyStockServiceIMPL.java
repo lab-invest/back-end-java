@@ -30,6 +30,7 @@ public class BuyStockServiceIMPL implements BuyStockService {
             stock.setQuantity(newQuantity);
             stock.setAveragePrice(avgPrice);
             userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), "geral", stock, stock.getTicker());
+            return;
         }
         var stock = stockDTO.toStock(stockRequest);
         userRepository.addStockToWallet(user.getEmail(), "geral", stock);

@@ -24,5 +24,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     void addStockToWallet(String email, String walletName, Stock stock);
 
     @Query("{ 'email': ?0, 'wallets': { '$elemMatch': { 'name': ?1, 'stockList': { '$elemMatch': { 'ticker': ?3 } } } } }")
+    @Update("{ $set: { 'wallets.$.stockList': ?2 } }")
     void updateStockQuantityAndAveragePrice(String email, String walletName, Stock stock, String ticker);
 }

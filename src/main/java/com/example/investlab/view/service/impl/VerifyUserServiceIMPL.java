@@ -33,8 +33,10 @@ public class VerifyUserServiceIMPL implements VerifyUserService {
 
     @Override
     public Optional<User> getUser(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException(email));
-        return Optional.of(user);
+        Optional<User> user = userRepository.findByEmail(email);
+        if(!user.isPresent()){
+            throw new UserNotFoundException("User Not Found");
+        }
+        return user;
     }
 }

@@ -3,4 +3,5 @@ spring:
     name: investLab
   data:
     mongodb:
-      uri: mongodb+srv://investlab:investlab123@investlab.gphsjai.mongodb.net/InvestLab?retryWrites=true&w=majority
+      uri: mongodb://localhost:27017/InvestLab
+#      uri: mongodb+srv://investlab:investlab123@investlab.gphsjai.mongodb.net/InvestLab?retryWrites=true&w=majority
