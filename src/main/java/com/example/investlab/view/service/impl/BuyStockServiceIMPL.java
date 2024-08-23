@@ -21,19 +21,24 @@ public class BuyStockServiceIMPL implements BuyStockService {
     private final Utils utils;
     @Override
     public void addStockToWallet(User user, StockRequest stockRequest) {
+
+
+        //TODO: Validar Saldo
+        //TODO: Validar se tem ações suficientes para vender
+        //TODO: Atualizar o Saldo
         boolean stockExists = findOrCreateStock(user.getEmail(),"geral", stockRequest);
+
+
         if (stockExists){
-            var stock = getStockByTicker(user.getEmail(), stockRequest.getTicker()).get();
+            var stock = getStockByTicker(user, "geral", stockRequest.getTicker()).get();
             var newQuantity = utils.calculateNewQuantity(stockRequest.getQuantity(), stock.getQuantity());
             double totalPrice = utils.calculateTotalPrice(stock.getQuantity(), stock.getAveragePrice()) + utils.calculateTotalPrice(stockRequest.getQuantity(), stockRequest.getAveragePrice());
             double avgPrice = utils.calculateAveragePrice(newQuantity, totalPrice);
-            stock.setQuantity(newQuantity);
-            stock.setAveragePrice(avgPrice);
-            userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), "geral", stock, stock.getTicker());
+            userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), "geral", stock.getTicker(), newQuantity, avgPrice);
             return;
         }
         var stock = stockDTO.toStock(stockRequest);
-        userRepository.addStockToWallet(user.getEmail(), "geral", stock);
+        userRepository.addStockToWallet(user.getEmail(), "geral", stock.getTicker(), stock);
     }
 
     @Override
@@ -45,16 +50,10 @@ public class BuyStockServiceIMPL implements BuyStockService {
         var user = userRepository.countByWalletNameAndStockTicker(email, walletName, stockRequest.getTicker());
         return user.isPresent();
         }
-    private Optional<Stock> getStockByTicker(String email, String ticker) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-        return userOptional.flatMap(user ->
-                user.getWallets().stream()
-                        .findFirst()
-                        .flatMap(wallet ->
-                                wallet.getStockList().stream()
-                                        .filter(stock -> stock.getTicker().equals(ticker))
-                                        .findFirst()
-                        )
-        );
+
+
+    private Optional<Stock> getStockByTicker(User user, String walletName, String ticker) {
+        var wallet = user.getWallets().get(walletName);
+        return wallet != null ? Optional.ofNullable(wallet.get(ticker)) : Optional.empty();
     }
 }
