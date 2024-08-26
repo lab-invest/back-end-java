@@ -15,15 +15,20 @@ import java.util.Optional;
 public interface UserRepository extends MongoRepository<User, String> {
 
     Optional<User> findByEmail(String email);
+
     void deleteByEmail(String email);
-    @Query("{ 'email': ?0, 'wallets': { '$elemMatch': { 'name': ?1, 'stockList': { '$elemMatch': { 'ticker': ?2 } } } } }")
+
+    @Query("{ 'email': ?0, 'wallets.?1.?2': { $exists: true } }")
     Optional<User> countByWalletNameAndStockTicker(String email, String walletName, String ticker);
 
-    @Query("{ 'email': ?0, 'wallets.name': ?1 }")
-    @Update("{ $push: { 'wallets.$.stockList': ?2 } }")
-    void addStockToWallet(String email, String walletName, Stock stock);
+    @Query("{ 'email': ?0 }")
+    @Update("{ $set: { 'wallets.?1.?2': ?3 } }")
+    void addStockToWallet(String email, String walletName, String ticker, Stock stock);
+    @Query("{ 'email': ?0 }")
+    @Update("{ $set: { 'wallets.?1.?2.quantity': ?3, 'wallets.?1.?2.averagePrice': ?4 } }")
+    void updateStockQuantityAndAveragePrice(String email, String walletName, String ticker, int quantity, double averagePrice);
 
-    @Query("{ 'email': ?0, 'wallets': { '$elemMatch': { 'name': ?1, 'stockList': { '$elemMatch': { 'ticker': ?3 } } } } }")
-    @Update("{ $set: { 'wallets.$.stockList': ?2 } }")
-    void updateStockQuantityAndAveragePrice(String email, String walletName, Stock stock, String ticker);
+    @Query("{'email':  ?0 }")
+    @Update("{$inc: {'quantity': -?1}}")
+    void updateQuantity(String email, double totalPrice);
 }

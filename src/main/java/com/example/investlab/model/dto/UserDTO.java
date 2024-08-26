@@ -2,10 +2,10 @@ package com.example.investlab.model.dto;
 
 import com.example.investlab.controller.request.UserRequest;
 import com.example.investlab.model.entitys.User;
-import com.example.investlab.model.entitys.Wallet;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
 
 @Component
 public class UserDTO {
@@ -18,7 +18,7 @@ public class UserDTO {
                 .experience(userRequest.getExperience())
                 .birth_date(userRequest.getBirthDate())
                 .balance(10000.0)
-                .wallets(new ArrayList<Wallet>())
+                .wallets(new HashMap<>())
                 .userPhoto(userRequest.getUserPhoto())
                 .build();
     }
