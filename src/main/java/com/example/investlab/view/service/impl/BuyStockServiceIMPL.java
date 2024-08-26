@@ -22,12 +22,9 @@ public class BuyStockServiceIMPL implements BuyStockService {
     @Override
     public void addStockToWallet(User user, StockRequest stockRequest) {
 
-
         //TODO: Validar Saldo
-        //TODO: Validar se tem ações suficientes para vender
         //TODO: Atualizar o Saldo
         boolean stockExists = findOrCreateStock(user.getEmail(),"geral", stockRequest);
-
 
         if (stockExists){
             var stock = getStockByTicker(user, "geral", stockRequest.getTicker()).get();
