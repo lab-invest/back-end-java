@@ -2,6 +2,7 @@ package com.example.investlab.view.service.impl;
 
 import com.example.investlab.model.repository.UserRepository;
 import com.example.investlab.view.exception.InsufficientBalanceException;
+import com.example.investlab.view.exception.UserNotFoundException;
 import com.example.investlab.view.service.BalanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,12 @@ public class BalanceServiceIMPL implements BalanceService {
     }
 
     @Override
-    public void updateBalance(String email, double amount) {
-        if(validateBalance(email, amount)){
-            var user = userRepository.findByEmail(email).get();
-            user.setBalance(user.getBalance()-amount);
-            userRepository.save(user);
+    public void updateBalance(String email, double amount, double totalPrice) {
+        if (validateBalance(email, totalPrice)) {
+            userRepository.updateBalance(email, amount);
             return;
         }
         throw new InsufficientBalanceException("Insufficient balance");
     }
+
 }

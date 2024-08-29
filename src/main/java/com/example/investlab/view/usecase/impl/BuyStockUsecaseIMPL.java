@@ -23,13 +23,14 @@ public class BuyStockUsecaseIMPL implements BuyStockUsecase {
     public void buyStock(String email, StockRequest stockRequest, String walletName) {
         User user = verifyUserService.getUser(email).orElseThrow();
         var totalPrice = utils.calculateTotalPrice(stockRequest.getQuantity(), stockRequest.getAveragePrice());
+        var newBalance = user.getBalance() - totalPrice;
         if (walletName != null && !walletName.isEmpty()) {
             buyStockService.addStockToSpecificWallet(user, stockRequest, walletName);
             return;
         } else{
             buyStockService.addStockToWallet(user, stockRequest);
         }
-        balanceService.updateBalance(email, totalPrice);
+        balanceService.updateBalance(email, newBalance, totalPrice);
     }
 }
 

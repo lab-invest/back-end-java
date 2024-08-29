@@ -31,4 +31,8 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Query("{'email':  ?0 }")
     @Update("{$inc: {'quantity': -?1}}")
     void updateQuantity(String email, double totalPrice);
+
+    @Query("{ 'email': ?0 }")
+    @Update("{ $set: { 'balance': ?1 } }")
+    void updateBalance(String email, double amount);
 }
