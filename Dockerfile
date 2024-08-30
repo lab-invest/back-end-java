@@ -1,9 +1,9 @@
-FROM maven:3.8.6-amazoncorretto-17 as build
+FROM maven:3.8.6-amazoncorretto-21 as build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -X -DskipTests
 
-FROM openjdk:17-ea-10-jdk-slim
+FROM openjdk:21-ea-10-jdk-slim
 WORKDIR /app
-COPY --from=build ./app/target/*.jar ./springdeskcurso.jar
-ENTRYPOINT java -jar springdeskcurso.jar
+COPY --from=build ./app/target/*.jar ./investlab.jar
+ENTRYPOINT java -jar investlab.jar
