@@ -6,6 +6,7 @@ import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
 import com.example.investlab.model.repository.UserRepository;
 import com.example.investlab.utils.Utils;
+import com.example.investlab.view.exception.InsufficientStockQuantityException;
 import com.example.investlab.view.service.BuyStockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,19 @@ public class BuyStockServiceIMPL implements BuyStockService {
     private final Utils utils;
     @Override
     public void addStockToWallet(User user, StockRequest stockRequest) {
-
-        //TODO: Validar Saldo
-        //TODO: Atualizar o Saldo
         boolean stockExists = findOrCreateStock(user.getEmail(),"geral", stockRequest);
 
         if (stockExists){
             var stock = getStockByTicker(user, "geral", stockRequest.getTicker()).get();
             var newQuantity = utils.calculateNewQuantity(stockRequest.getQuantity(), stock.getQuantity());
+            if(newQuantity < 0){
+                throw new InsufficientStockQuantityException("Stock quantity insufficient");
+            }
             double totalPrice = utils.calculateTotalPrice(stock.getQuantity(), stock.getAveragePrice()) + utils.calculateTotalPrice(stockRequest.getQuantity(), stockRequest.getAveragePrice());
+            if(newQuantity == 0 ){
+                userRepository.deleteStockFromWallet(user.getEmail(), "geral", stock.getTicker());
+                return;
+            }
             double avgPrice = utils.calculateAveragePrice(newQuantity, totalPrice);
             userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), "geral", stock.getTicker(), newQuantity, avgPrice);
             return;
