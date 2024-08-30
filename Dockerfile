@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN mvn clean package -X -DskipTests
 
-FROM openjdk:21-ea-10-jdk-slim
+FROM openjdk:21-jdk-slim
 WORKDIR /app
 COPY --from=build ./app/target/*.jar ./investlab.jar
-ENTRYPOINT java -jar investlab.jar
+ENTRYPOINT ["java", "-jar", "investlab.jar"]
