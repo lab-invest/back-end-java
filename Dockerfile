@@ -19,3 +19,5 @@ ENTRYPOINT ["java", "-jar", "investlab.jar"]
 
 ##TODO: FEITO
 ##TODO - cotação de 8 ações mais famosas da bolsa - VALE, TRPL4, TAEE3, NEO3, TOTS3, GOAU4, KLBN11, PETR4 - 1
+##TODO - Tela de previsão - 2
+
