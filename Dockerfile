@@ -9,10 +9,10 @@ COPY --from=build ./app/target/*.jar ./investlab.jar
 ENTRYPOINT ["java", "-jar", "investlab.jar"]
 
 
-##TODO - total wallet amount - 1
 ##TODO - tela de rentabilidade por carteira - gráfico - 5
 ##TODO - Tela da carteira - gráfico comparando as ações
-#TODO - Adicionar na carteira expecífica -3
+#TODO - Adicionar na carteira expecífica - 3
+#TODO - Adicionar id firebase no banco
 #TODO - DÉBITO TÉCNICO - Diminuir tempo de requisição da Stock Page
 
 ##TODO: FEITO
@@ -22,6 +22,8 @@ ENTRYPOINT ["java", "-jar", "investlab.jar"]
 ##TODO - Atualizar rota de markeplace - mandar img
 ##TODO - Atualizar rota de marketplace - grafico de minuto a minuto
 ##TODO - Tela de pesquisa antes de pesquisar - Paginação de ações 12 em 12 - 2
+#TODO - DÉBITO TÉCNICO - Decidir se os dados das ações serão de hoje
+
 
 
 ##TODO: DOING
