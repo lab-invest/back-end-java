@@ -17,6 +17,9 @@ import java.time.LocalDate;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserRequest {
 
+    @NotBlank(message = "id cannot be blank")
+    @NotNull(message = "id cannot be null")
+    private String uuid;
     @NotBlank(message = "CPF cannot be blank")
     @NotNull(message = "CPF cannot be null")
     private String cpf;

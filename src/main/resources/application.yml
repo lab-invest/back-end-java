@@ -1,4 +1,6 @@
 spring:
+  cache:
+    type: simple
   cloud:
     compatibility-verifier:
       enabled: false

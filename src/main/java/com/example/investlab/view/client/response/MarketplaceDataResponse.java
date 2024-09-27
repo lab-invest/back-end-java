@@ -12,7 +12,7 @@ import lombok.*;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MarketplaceDataResponse {
 
-    private AdditionalData additionalData;
+    private AdditionalData aditionalData;
     private double rentability;
     private Object historicalData;
     private double stockCotation;
