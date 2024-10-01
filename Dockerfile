@@ -1,16 +1,22 @@
-FROM maven:3.8.6-eclipse-temurin-21 as build
-WORKDIR /app
+FROM ubuntu:latest AS build
+
+RUN apt-get update
+RUN apt-get install openjdk-21-jdk -y
 COPY . .
-RUN mvn clean package -X -DskipTests
+
+RUN apt-get install maven -y
+RUN mvn clean install
 
 FROM openjdk:21-jdk-slim
-WORKDIR /app
-COPY --from=build ./app/target/*.jar ./investlab.jar
-ENTRYPOINT ["java", "-jar", "investlab.jar"]
 
+EXPOSE 8080
+
+COPY --from=build /target/investLab-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ##TODO - tela de rentabilidade por carteira - gráfico - 5
-##TODO - Tela da carteira - gráfico comparando as ações
+##TODO - Tela da carteira - gráfico comparando as ações - 11
 #TODO - Adicionar na carteira expecífica - 3
 #TODO - Adicionar id firebase no banco
 #TODO - DÉBITO TÉCNICO - Diminuir tempo de requisição da Stock Page
