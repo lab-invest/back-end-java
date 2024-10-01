@@ -1,7 +1,15 @@
 spring:
+  cache:
+    type: simple
+  cloud:
+    compatibility-verifier:
+      enabled: false
   application:
     name: investLab
   data:
     mongodb:
 #      uri: mongodb://localhost:27017/InvestLab
       uri: mongodb+srv://investlab:investlab123@investlab.gphsjai.mongodb.net/InvestLab?retryWrites=true&w=majority
+
+bff:
+  url: localhost:8000

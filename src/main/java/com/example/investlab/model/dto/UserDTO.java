@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class UserDTO {
     public User toUser(UserRequest userRequest) {
         return User.builder()
+                .uuid(userRequest.getUuid())
                 .cpf(userRequest.getCpf())
                 .name(userRequest.getName())
                 .email(userRequest.getEmail())

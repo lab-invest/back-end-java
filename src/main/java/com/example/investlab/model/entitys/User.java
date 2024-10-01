@@ -25,6 +25,9 @@ public class User {
     @NotNull(message = "CPF cannot be blank")
     private String cpf;
 
+    @NotNull(message = "Id cannot be blank")
+    private String uuid;
+
     @NotNull(message = "Name cannot be blank")
     private String name;
 
