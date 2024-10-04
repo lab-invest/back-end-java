@@ -17,24 +17,24 @@ public class VerifyUserServiceIMPL implements VerifyUserService {
     private final UserRepository userRepository;
 
     @Override
-    public boolean userExists(String email) {
-        if(userRepository.findByEmail(email).isEmpty()){
+    public boolean userExists(String uuid) {
+        if(userRepository.findByUuid(uuid).isEmpty()){
             return false;
         }
         throw new UserCreationException("User already exists");
     }
     @Override
-    public boolean userNotExists(String email) {
-        if(userRepository.findByEmail(email).isPresent()){
+    public boolean userNotExists(String uuid) {
+        if(userRepository.findByUuid(uuid).isPresent()){
             return true;
         }
         throw new UserNotFoundException("User not found exists");
     }
 
     @Override
-    public Optional<User> getUser(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if(!user.isPresent()){
+    public Optional<User> getUser(String uuid) {
+        Optional<User> user = userRepository.findByUuid(uuid);
+        if(user.isEmpty()){
             throw new UserNotFoundException("User Not Found");
         }
         return user;

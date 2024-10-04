@@ -14,12 +14,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
-    Optional<User> findByEmail(String email);
+    Optional<User> findByUuid(String uuid);
 
-    void deleteByEmail(String email);
-
-    @Query("{ 'email': ?0, 'wallets.?1.?2': { $exists: true } }")
-    Optional<User> countByWalletNameAndStockTicker(String email, String walletName, String ticker);
+    void deleteByUuid(String uuid);
 
     @Query("{ 'email': ?0 }")
     @Update("{ $set: { 'wallets.?1.?2': ?3 } }")
@@ -32,9 +29,9 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Update("{$inc: {'quantity': -?1}}")
     void updateQuantity(String email, double totalPrice);
 
-    @Query("{ 'email': ?0 }")
+    @Query("{ 'uuid': ?0 }")
     @Update("{ $set: { 'balance': ?1 } }")
-    void updateBalance(String email, double amount);
+    void updateBalance(String uuid, double amount);
 
     @Query("{ 'email': ?0 }")
     @Update("{ $unset: { 'wallets.?1.?2': '' } }")

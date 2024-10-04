@@ -18,20 +18,20 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
 
     private final VerifyUserService verifyUserService;
     @Override
-    public Optional<User> getUserInfo(String email) {
-        Optional<User> user = verifyUserService.getUser(email);
+    public Optional<User> getUserInfo(String uuid) {
+        Optional<User> user = verifyUserService.getUser(uuid);
         return user;
     }
 
     @Override
-    public double getUserBalance(String email) {
-        Optional<User> user = verifyUserService.getUser(email);
+    public double getUserBalance(String uuid) {
+        Optional<User> user = verifyUserService.getUser(uuid);
         return user.get().getBalance();
     }
 
     @Override
-    public Map<String, Map<String, Stock>> getUserWallets(String email) {
-        Optional<User> user = verifyUserService.getUser(email);
+    public Map<String, Map<String, Stock>> getUserWallets(String uuid) {
+        Optional<User> user = verifyUserService.getUser(uuid);
         return user.get().getWallets();
     }
 }

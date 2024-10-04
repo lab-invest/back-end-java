@@ -13,11 +13,13 @@ public class DeleteUserServiceIMPL implements DeleteUserService {
     private final UserRepository userRepository;
 
     @Override
-    public void deleteUser(String email) {
-        if (userRepository.findByEmail(email).isPresent()) {
-            userRepository.deleteByEmail(email);
+    public void deleteUser(String uuid) {
+        if (userRepository.findByUuid(uuid).isPresent()) {
+            userRepository.deleteByUuid(uuid);
+            return;
         }
-        throw new UserDeletionException("Fail to delete user with email: " + email);
+
+        throw new UserDeletionException("Fail to delete user with uuid: " + uuid);
     }
 }
 

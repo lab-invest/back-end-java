@@ -15,15 +15,15 @@ public class BalanceServiceIMPL implements BalanceService {
 
 
     @Override
-    public boolean validateBalance(String email, double amount) {
-        var user = userRepository.findByEmail(email);
+    public boolean validateBalance(String uuid, double amount) {
+        var user = userRepository.findByUuid(uuid);
         return user.get().getBalance() > amount;
     }
 
     @Override
-    public void updateBalance(String email, double amount, double totalPrice) {
-        if (validateBalance(email, totalPrice)) {
-            userRepository.updateBalance(email, amount);
+    public void updateBalance(String uuid, double amount, double totalPrice) {
+        if (validateBalance(uuid, totalPrice)) {
+            userRepository.updateBalance(uuid, amount);
             return;
         }
         throw new InsufficientBalanceException("Insufficient balance");

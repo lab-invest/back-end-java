@@ -15,8 +15,8 @@ public class DeleteUserController implements DeleteUserContract {
 
     @Override
     @DeleteMapping
-    public ResponseEntity<String> deleteUser(@RequestParam String email) {
-        deleteUserUsecase.deleteUser(email);
+    public ResponseEntity<String> deleteUser(@RequestParam String uuid) {
+        deleteUserUsecase.deleteUser(uuid);
         return new ResponseEntity<>("User deleted!", HttpStatus.OK);
     }
 }
