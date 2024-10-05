@@ -17,11 +17,11 @@ public class BuyStockController implements BuyStockContract {
     @Override
     @PatchMapping
     public ResponseEntity<String> buyStock(
-            @RequestParam String email,
+            @RequestParam String uuid,
             @RequestBody StockRequest stock,
             @RequestParam(required = false) String wallet
     ) {
-        buyStockUsecase.buyStock(email, stock, wallet);
+        buyStockUsecase.buyStock(uuid, stock, wallet);
         return ResponseEntity.ok("Stock purchased successfully");
     }
 }

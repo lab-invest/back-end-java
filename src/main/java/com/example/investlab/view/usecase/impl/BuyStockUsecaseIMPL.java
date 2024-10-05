@@ -20,8 +20,8 @@ public class BuyStockUsecaseIMPL implements BuyStockUsecase {
     private final Utils utils;
 
     @Override
-    public void buyStock(String email, StockRequest stockRequest, String walletName) {
-        User user = verifyUserService.getUser(email).orElseThrow();
+    public void buyStock(String uuid, StockRequest stockRequest, String walletName) {
+        User user = verifyUserService.getUser(uuid).orElseThrow();
         var totalPrice = utils.calculateTotalPrice(stockRequest.getQuantity(), stockRequest.getAveragePrice());
         var newBalance = user.getBalance() - totalPrice;
         buyStockService.addStockToWallet(user, stockRequest);
@@ -29,7 +29,7 @@ public class BuyStockUsecaseIMPL implements BuyStockUsecase {
             buyStockService.addStockToSpecificWallet(user, stockRequest, walletName);
             return;
         }
-        balanceService.updateBalance(email, newBalance, totalPrice);
+        balanceService.updateBalance(uuid, newBalance, totalPrice);
     }
 }
 

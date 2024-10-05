@@ -22,22 +22,22 @@ public class UserInfoController implements UserInfoContract {
 
     @Override
     @GetMapping
-    public ResponseEntity<Optional<User>> getUserInfo(@RequestParam String email) {
-        var user = userInfoUsecase.getUserInfo(email);
+    public ResponseEntity<Optional<User>> getUserInfo(@RequestParam String uuid) {
+        var user = userInfoUsecase.getUserInfo(uuid);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/balance")
-    public ResponseEntity<Double> getUserBalance(@RequestParam String email) {
-        var user = userInfoUsecase.getUserBalance(email);
+    public ResponseEntity<Double> getUserBalance(@RequestParam String uuid) {
+        var user = userInfoUsecase.getUserBalance(uuid);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/wallets")
-    public ResponseEntity<Map<String, Map<String, Stock>>> getUserWallets(@RequestParam String email) {
-        var user = userInfoUsecase.getUserWallets(email);
+    public ResponseEntity<Map<String, Map<String, Stock>>> getUserWallets(@RequestParam String uuid) {
+        var user = userInfoUsecase.getUserWallets(uuid);
         return ResponseEntity.ok(user);
     }
 }

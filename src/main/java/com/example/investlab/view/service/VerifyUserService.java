@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface VerifyUserService {
 
-    boolean userExists(String email);
-    boolean userNotExists(String email);
-    Optional<User> getUser(String email);
+    boolean userExists(String uuid);
+    boolean userNotExists(String uuid);
+    Optional<User> getUser(String uuid);
 }

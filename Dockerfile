@@ -36,5 +36,3 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 #TODO - DÉBITO TÉCNICO - Diminuir tempo de requisição da Stock Page
 ##TODO - Tela da carteira - gráfico comparando as ações - 11
 
-
-
