@@ -61,14 +61,22 @@ public class BuyStockServiceIMPL implements BuyStockService {
 
     @Override
     public void addStockToSpecificWallet(User user, StockRequest stockRequest, String wallet) {
-        addNewStockToWallet(user, stockRequest, "geral");
-        boolean stockExists = findOrCreateStock(user.getUuid(), wallet, stockRequest);
-        if (stockExists) {
+        boolean stockExistsInSpecific = findOrCreateStock(user.getUuid(), wallet, stockRequest);
+        boolean stockExistsInGeneral = findOrCreateStock(user.getUuid(), "geral", stockRequest);
+
+        if (stockExistsInSpecific) {
             handleExistingStock(user, stockRequest, wallet);
         } else {
             addNewStockToWallet(user, stockRequest, wallet);
         }
+
+        if (stockExistsInGeneral) {
+            handleExistingStock(user, stockRequest, "geral");
+        } else {
+            addNewStockToWallet(user, stockRequest, "geral");
+        }
     }
+
 
     private boolean findOrCreateStock(String uuid, String walletName, StockRequest stockRequest) {
         Optional<User> userOptional = userRepository.findByUuid(uuid);
