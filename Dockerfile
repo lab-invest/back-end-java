@@ -17,6 +17,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
 #TODO - DÉBITO TÉCNICO - Validar horário e mandar 0 se for antes das 10
+#TODO - Finalizar integração BFF com java
 
 ##TODO: FEITO
 ##TODO - cotação de 8 ações mais famosas da bolsa - VALE, TRPL4, TAEE3, NEO3, TOTS3, GOAU4, KLBN11, PETR4 - 1
