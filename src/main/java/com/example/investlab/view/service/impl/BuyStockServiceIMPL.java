@@ -24,14 +24,14 @@ public class BuyStockServiceIMPL implements BuyStockService {
     public void addStockToWallet(User user, StockRequest stockRequest) {
         boolean stockExists = findOrCreateStock(user.getUuid(), "geral", stockRequest);
         if (stockExists) {
-            handleExistingStock(user, stockRequest);
+            handleExistingStock(user, stockRequest, "geral");
         } else {
-            addNewStockToWallet(user, stockRequest);
+            addNewStockToWallet(user, stockRequest, "geral");
         }
     }
 
-    private void handleExistingStock(User user, StockRequest stockRequest) {
-        var stockOptional = getStockByTicker(user, "geral", stockRequest.getTicker());
+    private void handleExistingStock(User user, StockRequest stockRequest, String wallet) {
+        var stockOptional = getStockByTicker(user, wallet, stockRequest.getTicker());
         if (stockOptional.isPresent()) {
             var stock = stockOptional.get();
             var newQuantity = utils.calculateNewQuantity(stockRequest.getQuantity(), stock.getQuantity());
@@ -40,17 +40,17 @@ public class BuyStockServiceIMPL implements BuyStockService {
             }
             double totalPrice = calculateTotalPrice(stockRequest, stock, newQuantity);
             if (newQuantity == 0) {
-                userRepository.deleteStockFromWallet(user.getEmail(), "geral", stock.getTicker());
+                userRepository.deleteStockFromWallet(user.getEmail(), wallet, stock.getTicker());
             } else {
                 double avgPrice = utils.calculateAveragePrice(newQuantity, totalPrice);
-                userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), "geral", stock.getTicker(), newQuantity, avgPrice);
+                userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), wallet, stock.getTicker(), newQuantity, avgPrice);
             }
         }
     }
 
-    private void addNewStockToWallet(User user, StockRequest stockRequest) {
+    private void addNewStockToWallet(User user, StockRequest stockRequest, String wallet) {
         var stock = stockDTO.toStock(stockRequest);
-        userRepository.addStockToWallet(user.getEmail(), "geral", stock.getTicker(), stock);
+        userRepository.addStockToWallet(user.getEmail(), wallet, stock.getTicker(), stock);
     }
 
     private double calculateTotalPrice(StockRequest stockRequest, Stock stock, double newQuantity) {
@@ -60,8 +60,14 @@ public class BuyStockServiceIMPL implements BuyStockService {
     }
 
     @Override
-    public void addStockToSpecificWallet(User user, StockRequest stockRequest, String walletName) {
-
+    public void addStockToSpecificWallet(User user, StockRequest stockRequest, String wallet) {
+        addNewStockToWallet(user, stockRequest, "geral");
+        boolean stockExists = findOrCreateStock(user.getUuid(), wallet, stockRequest);
+        if (stockExists) {
+            handleExistingStock(user, stockRequest, wallet);
+        } else {
+            addNewStockToWallet(user, stockRequest, wallet);
+        }
     }
 
     private boolean findOrCreateStock(String uuid, String walletName, StockRequest stockRequest) {

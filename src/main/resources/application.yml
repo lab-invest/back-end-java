@@ -13,4 +13,4 @@ spring:
 
 bff:
 #  url: https://investlab-bff.onrender.com
-   url: loclhost:8000
+   url: localhost:8000

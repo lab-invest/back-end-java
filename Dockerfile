@@ -15,7 +15,7 @@ COPY --from=build /target/investLab-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
-#TODO - Adicionar na carteira expecífica - 3
+
 #TODO - DÉBITO TÉCNICO - Validar horário e mandar 0 se for antes das 10
 
 ##TODO: FEITO
@@ -32,8 +32,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
 
-
-
 ##TODO: DOING
+#TODO - Adicionar na carteira expecífica - 3
 #TODO - DÉBITO TÉCNICO - Diminuir tempo de requisição da Stock Page
 
