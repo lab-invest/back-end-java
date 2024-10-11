@@ -28,11 +28,12 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 #TODO - DÉBITO TÉCNICO - Decidir se os dados das ações serão de hoje
 #TODO - Adicionar id firebase no banco
 ##TODO - tela de rentabilidade por carteira - gráfico - 5
+##TODO - Tela da carteira - gráfico comparando as ações - 11
+
 
 
 
 
 ##TODO: DOING
 #TODO - DÉBITO TÉCNICO - Diminuir tempo de requisição da Stock Page
-##TODO - Tela da carteira - gráfico comparando as ações - 11
 
