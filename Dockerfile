@@ -18,6 +18,8 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 #TODO - DÉBITO TÉCNICO - Validar horário e mandar 0 se for antes das 10
 #TODO - Finalizar integração BFF com java
+#TODO - ALTERAÇÃO DE USUÁRIO - Nome, foto de perfil
+#TODO - Validar venda de ação - se ele tem a quantidade que quer vender e se vender tudo setar 0 e tirar da lista
 
 ##TODO: FEITO
 ##TODO - cotação de 8 ações mais famosas da bolsa - VALE, TRPL4, TAEE3, NEO3, TOTS3, GOAU4, KLBN11, PETR4 - 1
@@ -31,6 +33,8 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 ##TODO - tela de rentabilidade por carteira - gráfico - 5
 ##TODO - Tela da carteira - gráfico comparando as ações - 11
 #TODO - Adicionar na carteira expecífica - 3
+#TODO - Limpar perfil
+
 
 
 ##TODO: DOING
