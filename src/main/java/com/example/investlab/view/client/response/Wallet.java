@@ -1,9 +1,11 @@
 package com.example.investlab.view.client.response;
 
+import com.example.investlab.model.entitys.Stock;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
+import java.util.List;
 
 @Getter
 @Builder
@@ -11,9 +13,8 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class PrevisionResponse {
+public class Wallet {
+    private String name;
+    private List<Stock> items;
 
-    private double previsionedValue;
-    private double rentability;
-    private String historicalData;
 }

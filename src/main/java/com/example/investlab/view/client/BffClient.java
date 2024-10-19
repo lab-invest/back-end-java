@@ -1,9 +1,9 @@
 package com.example.investlab.view.client;
 
-import com.example.investlab.view.client.response.MarketplaceDataResponse;
-import com.example.investlab.view.client.response.PrevisionResponse;
+import com.example.investlab.view.client.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,5 +24,14 @@ public interface BffClient {
     MarketplaceDataResponse getStockMarketplace(@RequestParam("ticker") String ticker);
 
     @GetMapping("/stock/stockPage")
-    void getStockPage(@RequestParam("ticker") String ticker);
+    StockPageResponse getStockPage();
+
+    @GetMapping("/stock/image")
+    String getStockImage(@RequestParam("ticker") String ticker);
+
+    @GetMapping("/stock/comparison")
+    Object getStockComparison(@RequestParam("tickerList") List<String> tickerList);
+
+    @PostMapping("/wallet/comparison")
+    List<WalletComparisonResponse> getWalletComparison(WalletList walletList);
 }

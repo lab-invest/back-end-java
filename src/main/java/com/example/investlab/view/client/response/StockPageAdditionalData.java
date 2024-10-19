@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
+import java.util.List;
 
 @Getter
 @Builder
@@ -11,9 +12,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class PrevisionResponse {
-
-    private double previsionedValue;
-    private double rentability;
-    private String historicalData;
+public class StockPageAdditionalData {
+    private List<StockInfo> items;
 }

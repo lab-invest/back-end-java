@@ -4,7 +4,10 @@ import com.example.investlab.controller.request.StockRequest;
 import com.example.investlab.view.client.BffClient;
 import com.example.investlab.view.client.response.MarketplaceDataResponse;
 import com.example.investlab.view.client.response.PrevisionResponse;
+import com.example.investlab.view.client.response.StockPageResponse;
+import com.example.investlab.view.client.response.WalletComparisonResponse;
 import com.example.investlab.view.usecase.BuyStockUsecase;
+import com.example.investlab.view.usecase.UserInfoUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +17,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/stock")
+@RequestMapping("/bff")
 public class BffController {
 
     private final BffClient bffClient;
+    private final UserInfoUsecase userInfoUsecase;
 
-    @GetMapping("/cotation")
-    @Cacheable("dataCache")
+    @GetMapping("stock/cotation")
     public ResponseEntity<Double> getStockCotation(
             @RequestParam String ticker
     ) {
@@ -28,29 +31,57 @@ public class BffController {
         return ResponseEntity.ok(cotation);
     }
 
-    @GetMapping("cotation/list")
-    @Cacheable("dataCache")
+    @GetMapping("stock/rentability/list")
     public ResponseEntity<List<Double>> getStockListCotation(
     ) {
-        var cotation = bffClient.getCotationList();
-        return ResponseEntity.ok(cotation);
+        var rentabilityList = bffClient.getCotationList();
+        return ResponseEntity.ok(rentabilityList);
     }
 
-    @Cacheable("dataCache")
-    @GetMapping("prevision")
+    @GetMapping("stock/prevision")
     public ResponseEntity<PrevisionResponse> getStockPrevision(
             @RequestParam String ticker
     ) {
-        var cotation = bffClient.getStockPrevision(ticker);
-        return ResponseEntity.ok(cotation);
+        var prevision = bffClient.getStockPrevision(ticker);
+        return ResponseEntity.ok(prevision);
     }
 
-    @Cacheable("dataCache")
-    @GetMapping("marketplace")
+    @GetMapping("stock/marketplace")
     public ResponseEntity<MarketplaceDataResponse> getStockMarketPlace(
             @RequestParam String ticker
     ) {
-        var cotation = bffClient.getStockMarketplace(ticker);
-        return ResponseEntity.ok(cotation);
+        var response = bffClient.getStockMarketplace(ticker);
+        return ResponseEntity.ok(response);
     }
+
+    @GetMapping("stock/stockpage")
+    public ResponseEntity<StockPageResponse> getStockPage() {
+        var stockPage = bffClient.getStockPage();
+        return ResponseEntity.ok(stockPage);
+    }
+
+    @GetMapping("stock/image")
+    public ResponseEntity<String> getStockImage(
+            @RequestParam String ticker
+    ) {
+        var image = bffClient.getStockImage(ticker);
+        return ResponseEntity.ok(image);
+    }
+
+    @GetMapping("stock/comparison")
+    public ResponseEntity<Object> getStockComparison(
+            @RequestParam List<String> ticker
+    ) {
+        var comparison = bffClient.getStockComparison(ticker);
+        return ResponseEntity.ok(comparison);
+    }
+
+//    @GetMapping("wallet/comparison")
+//    public ResponseEntity<List<WalletComparisonResponse>> getWalletComparison(
+//            @RequestParam String uuid
+//    ) {
+//        var walletsList = userInfoUsecase.getUserWallets(uuid);
+//        var response = bffClient.getWalletComparison(walletsList);
+//        return ResponseEntity.ok(response);
+//    }
 }

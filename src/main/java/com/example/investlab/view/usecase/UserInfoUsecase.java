@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface UserInfoUsecase {
-    Optional<User> getUserInfo(String email);
-    double getUserBalance(String email);
-    Map<String, Map<String, Stock>> getUserWallets(String email);
+    Optional<User> getUserInfo(String uuid);
+    double getUserBalance(String uuid);
+    Map<String, Map<String, Stock>> getUserWallets(String uuid);
 }
