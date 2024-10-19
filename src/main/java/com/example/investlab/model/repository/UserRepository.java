@@ -45,4 +45,16 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Update("{ $unset: { 'wallets.?1.?2': '' } }")
     void deleteStockFromWallet(String email, String walletName, String ticker);
 
+    @Query("{ 'email': ?0 }")
+    @Update("{ $unset: { 'wallets.geral.?1': '' } }")
+    void deleteStockFromGeral(String email, String ticker);
+
+    @Query("{ 'uuid': ?0 }")
+    @Update("{ $set: { 'name': ?1 } }")
+    void updateName(String uuid, String ticker);
+
+    @Query("{ 'uuid': ?0 }")
+    @Update("{ $set: { 'userPhoto': ?1 } }")
+    void updateUrl(String uuid,String ticker);
+
 }
