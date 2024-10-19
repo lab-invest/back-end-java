@@ -33,5 +33,5 @@ public interface BffClient {
     Object getStockComparison(@RequestParam("tickerList") List<String> tickerList);
 
     @PostMapping("/wallet/comparison")
-    List<WalletComparisonResponse> getWalletComparison(WalletList walletList);
+    Object getWalletComparison(WalletList walletList);
 }

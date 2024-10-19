@@ -12,5 +12,5 @@ spring:
       uri: mongodb+srv://investlab:investlab123@investlab.gphsjai.mongodb.net/InvestLab?retryWrites=true&w=majority
 
 bff:
-#  url: https://investlab-bff.onrender.com
-   url: localhost:8000
+  url: https://investlab-bff.onrender.com
+#   url: localhost:8000

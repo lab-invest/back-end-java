@@ -1,11 +1,9 @@
 package com.example.investlab.controller.entrypoint;
 
 import com.example.investlab.controller.request.StockRequest;
+import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.view.client.BffClient;
-import com.example.investlab.view.client.response.MarketplaceDataResponse;
-import com.example.investlab.view.client.response.PrevisionResponse;
-import com.example.investlab.view.client.response.StockPageResponse;
-import com.example.investlab.view.client.response.WalletComparisonResponse;
+import com.example.investlab.view.client.response.*;
 import com.example.investlab.view.usecase.BuyStockUsecase;
 import com.example.investlab.view.usecase.UserInfoUsecase;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +11,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -76,12 +76,41 @@ public class BffController {
         return ResponseEntity.ok(comparison);
     }
 
-//    @GetMapping("wallet/comparison")
-//    public ResponseEntity<List<WalletComparisonResponse>> getWalletComparison(
-//            @RequestParam String uuid
-//    ) {
-//        var walletsList = userInfoUsecase.getUserWallets(uuid);
-//        var response = bffClient.getWalletComparison(walletsList);
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("wallet/comparison")
+    public ResponseEntity<Object> getWalletComparison(
+            @RequestParam String uuid
+    ) {
+        var walletsList = userInfoUsecase.getUserWallets(uuid);
+//        return ResponseEntity.ok(mapToWalletList(walletsList));
+        var response = bffClient.getWalletComparison(mapToWalletList(walletsList));
+        return ResponseEntity.ok(response);
+    }
+
+    public WalletList mapToWalletList(Map<String, Map<String, Stock>> source) {
+        WalletList walletList = new WalletList();
+        List<Wallet> wallets = new ArrayList<>();
+
+        for (Map.Entry<String, Map<String, Stock>> entry : source.entrySet()) {
+            String walletName = entry.getKey();
+            Map<String, Stock> stocksMap = entry.getValue();
+
+            Wallet wallet = new Wallet();
+            wallet.setName(walletName);
+
+            List<Stock> stocksWithSuffix = new ArrayList<>();
+            for (Stock stock : stocksMap.values()) {
+                Stock modifiedStock = new Stock();
+                modifiedStock.setTicker(stock.getTicker() + ".SA");
+                modifiedStock.setQuantity(stock.getQuantity());
+                modifiedStock.setAveragePrice(stock.getAveragePrice());
+                stocksWithSuffix.add(modifiedStock);
+            }
+
+            wallet.setItems(stocksWithSuffix);
+            wallets.add(wallet);
+        }
+
+        walletList.setWallets(wallets);
+        return walletList;
+    }
 }

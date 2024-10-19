@@ -1,6 +1,5 @@
 package com.example.investlab.controller.request;
 
-import com.example.investlab.model.enums.Knowledge;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotBlank;
@@ -32,8 +31,6 @@ public class UserRequest {
     @NotBlank(message = "Password cannot be blank")
     @NotNull(message = "Password cannot be null")
     private String password;
-    @NotNull(message = "Experience cannot be null")
-    private Knowledge experience;
     @NotNull(message = "Birth date cannot be null")
     private LocalDate birthDate;
     private String userPhoto;

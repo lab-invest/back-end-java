@@ -16,7 +16,6 @@ public class UserDTO {
                 .name(userRequest.getName())
                 .email(userRequest.getEmail())
                 .password(userRequest.getPassword())
-                .experience(userRequest.getExperience())
                 .birth_date(userRequest.getBirthDate())
                 .balance(10000.0)
                 .wallets(new HashMap<>())
