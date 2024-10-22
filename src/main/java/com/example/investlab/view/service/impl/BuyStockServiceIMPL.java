@@ -41,6 +41,7 @@ public class BuyStockServiceIMPL implements BuyStockService {
             double totalPrice = calculateTotalPrice(stockRequest, stock, newQuantity);
             if (newQuantity == 0) {
                 userRepository.deleteStockFromWallet(user.getEmail(), wallet, stock.getTicker());
+                userRepository.deleteStockFromGeral(user.getEmail(), stock.getTicker());
             } else {
                 double avgPrice = utils.calculateAveragePrice(newQuantity, totalPrice);
                 userRepository.updateStockQuantityAndAveragePrice(user.getEmail(), wallet, stock.getTicker(), newQuantity, avgPrice);
