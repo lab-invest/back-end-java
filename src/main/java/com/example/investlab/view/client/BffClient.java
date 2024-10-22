@@ -1,9 +1,11 @@
 package com.example.investlab.view.client;
 
+import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.view.client.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -31,6 +33,9 @@ public interface BffClient {
 
     @GetMapping("/stock/comparison")
     Object getStockComparison(@RequestParam("tickerList") List<String> tickerList);
+
+    @PostMapping("/stock/comparisonAside")
+    Object getStockComparisonAside(@RequestBody() List<Stock> tickerList);
 
     @PostMapping("/wallet/comparison")
     Object getWalletComparison(WalletList walletList);

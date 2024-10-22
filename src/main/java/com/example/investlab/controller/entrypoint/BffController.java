@@ -1,5 +1,6 @@
 package com.example.investlab.controller.entrypoint;
 
+import com.example.investlab.controller.mapper.StockMapper;
 import com.example.investlab.controller.request.StockRequest;
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.view.client.BffClient;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class BffController {
 
     private final BffClient bffClient;
+    private final StockMapper mapper;
     private final UserInfoUsecase userInfoUsecase;
 
     @GetMapping("stock/cotation")
@@ -73,6 +75,16 @@ public class BffController {
             @RequestParam List<String> ticker
     ) {
         var comparison = bffClient.getStockComparison(ticker);
+        return ResponseEntity.ok(comparison);
+    }
+
+    @GetMapping("stock/comparison/aside")
+    public ResponseEntity<Object> getStockComparison(
+            @RequestParam String uuid,
+            @RequestParam(required = false) String wallet
+    ) {
+        var walletList = userInfoUsecase.getUserWallet(uuid, wallet);
+        var comparison = bffClient.getStockComparisonAside(mapper.convertToStockList(walletList));
         return ResponseEntity.ok(comparison);
     }
 

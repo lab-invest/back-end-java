@@ -2,6 +2,7 @@ package com.example.investlab.view.usecase.impl;
 
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
+import com.example.investlab.view.exception.UserNotFoundException;
 import com.example.investlab.view.service.VerifyUserService;
 import com.example.investlab.view.usecase.UserInfoUsecase;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,14 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     public Map<String, Map<String, Stock>> getUserWallets(String uuid) {
         Optional<User> user = verifyUserService.getUser(uuid);
         return user.get().getWallets();
+    }
+
+    @Override
+    public Map<String, Stock> getUserWallet(String uuid, String wallet) {
+        if (wallet == null){
+            wallet = "geral";
+        }
+        User user = verifyUserService.getUser(uuid).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return user.getWallets().get(wallet);
     }
 }
