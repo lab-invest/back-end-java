@@ -57,4 +57,8 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Update("{ $set: { 'userPhoto': ?1 } }")
     void updateUrl(String uuid,String ticker);
 
+    @Query("{ 'uuid': ?0 }")
+    @Update("{ $set: { 'rentability': ?1 } }")
+    void updateRentability(String uuid, double rentability);
+
 }

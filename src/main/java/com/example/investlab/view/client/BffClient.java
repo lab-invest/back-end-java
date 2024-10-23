@@ -39,4 +39,7 @@ public interface BffClient {
 
     @PostMapping("/wallet/comparison")
     Object getWalletComparison(WalletList walletList);
+
+    @PostMapping("/wallet/rentability")
+    double updateWalletRentability(@RequestBody List<Stock> tickerList);
 }

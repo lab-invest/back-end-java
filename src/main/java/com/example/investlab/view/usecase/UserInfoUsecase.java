@@ -12,4 +12,5 @@ public interface UserInfoUsecase {
     Map<String, Map<String, Stock>> getUserWallets(String uuid);
 
     Map<String, Stock> getUserWallet(String uuid, String wallet);
+    void updateUserRentability(String uuid);
 }

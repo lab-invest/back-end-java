@@ -7,9 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -43,6 +41,8 @@ public class User {
     private double balance;
 
     private Map<String, Map<String, Stock>> wallets = new HashMap<>();
+
+    private double rentability = 0;
 
     private String userPhoto;
 }
