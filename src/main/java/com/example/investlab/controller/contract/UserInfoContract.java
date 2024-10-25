@@ -36,5 +36,5 @@ public interface UserInfoContract {
      * @param email O endereço de e-mail do usuário.
      * @return Um {@link ResponseEntity} contendo a lista de carteiras e o status HTTP.
      */
-    ResponseEntity<Map<String, Map<String, Stock>>> getUserWallets(@RequestParam String email);
+    ResponseEntity<Map<String, Map<String, Object>>> getUserWallets(@RequestParam String email);
 }

@@ -92,7 +92,7 @@ public class BffController {
     public ResponseEntity<Object> getWalletComparison(
             @RequestParam String uuid
     ) {
-        var walletsList = userInfoUsecase.getUserWallets(uuid);
+        var walletsList = userInfoUsecase.getUserWalletsComparison(uuid);
         var response = bffClient.getWalletComparison(mapToWalletList(walletsList));
         return ResponseEntity.ok(response);
     }

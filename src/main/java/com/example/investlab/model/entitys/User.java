@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Calendar;
 
 @Getter
 @Setter
@@ -40,7 +41,7 @@ public class User {
     @NotNull(message = "Balance cannot be null")
     private double balance;
 
-    private Map<String, Map<String, Stock>> wallets = new HashMap<>();
+    private Map<String ,Map<String, Stock>> wallets = new HashMap<>();
 
     private double rentability = 0;
 

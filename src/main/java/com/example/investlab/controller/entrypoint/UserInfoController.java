@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,8 +37,9 @@ public class UserInfoController implements UserInfoContract {
 
     @Override
     @GetMapping("/wallets")
-    public ResponseEntity<Map<String, Map<String, Stock>>> getUserWallets(@RequestParam String uuid) {
+    public ResponseEntity<Map<String, Map<String, Object>>> getUserWallets(@RequestParam String uuid) {
         var user = userInfoUsecase.getUserWallets(uuid);
         return ResponseEntity.ok(user);
     }
+
 }

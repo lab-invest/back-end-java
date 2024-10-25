@@ -8,6 +8,7 @@ import com.example.investlab.view.client.BffClient;
 import com.example.investlab.view.exception.UserNotFoundException;
 import com.example.investlab.view.service.VerifyUserService;
 import com.example.investlab.view.usecase.UserInfoUsecase;
+import com.example.investlab.view.usecase.mapper.WalletMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     private final BffClient client;
     private final StockMapper mapper;
     private final UserRepository repository;
+    private final WalletMapper walletMapper;
     @Override
     public Optional<User> getUserInfo(String uuid) {
         this.updateUserRentability(uuid);
@@ -36,10 +38,19 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     }
 
     @Override
-    public Map<String, Map<String, Stock>> getUserWallets(String uuid) {
+    public Map<String, Map<String, Object>> getUserWallets(String uuid) {
+        Optional<User> user = verifyUserService.getUser(uuid);
+        var wallets = user.get().getWallets();
+        return walletMapper.mapWallets(wallets);
+    }
+
+    @Override
+    public Map<String, Map<String, Stock>> getUserWalletsComparison(String uuid) {
         Optional<User> user = verifyUserService.getUser(uuid);
         return user.get().getWallets();
+
     }
+
 
     @Override
     public Map<String, Stock> getUserWallet(String uuid, String wallet) {
@@ -53,8 +64,10 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     @Override
     public void updateUserRentability(String uuid) {
         var walletList = this.getUserWallet(uuid, "geral");
-        var rentability = client.updateWalletRentability(mapper.convertToStockList(walletList));
-        repository.updateRentability(uuid, rentability);
+        if(!walletList.isEmpty() ){
+            var rentability = client.updateWalletRentability(mapper.convertToStockList(walletList));
+            repository.updateRentability(uuid, rentability);
+        }
     }
 
 
