@@ -2,6 +2,7 @@ package com.example.investlab.controller.contract;
 
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
+import com.example.investlab.model.entitys.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,7 +21,7 @@ public interface UserInfoContract {
      * @param email O endereço de e-mail do usuário.
      * @return Um {@link ResponseEntity} contendo um {@link User} e o status HTTP.
      */
-    ResponseEntity<Optional<User>> getUserInfo(@RequestParam String email);
+    ResponseEntity<UserResponse> getUserInfo(@RequestParam String email);
 
     /**
      * Obtém o saldo do usuário com base no endereço de e-mail fornecido.

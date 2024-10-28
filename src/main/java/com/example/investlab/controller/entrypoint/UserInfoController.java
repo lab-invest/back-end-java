@@ -3,6 +3,7 @@ package com.example.investlab.controller.entrypoint;
 import com.example.investlab.controller.contract.UserInfoContract;
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
+import com.example.investlab.model.entitys.UserResponse;
 import com.example.investlab.view.usecase.UserInfoUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class UserInfoController implements UserInfoContract {
 
     @Override
     @GetMapping
-    public ResponseEntity<Optional<User>> getUserInfo(@RequestParam String uuid) {
+    public ResponseEntity<UserResponse> getUserInfo(@RequestParam String uuid) {
         var user = userInfoUsecase.getUserInfo(uuid);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

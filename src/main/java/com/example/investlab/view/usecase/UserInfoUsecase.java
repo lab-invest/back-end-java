@@ -2,12 +2,13 @@ package com.example.investlab.view.usecase;
 
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
+import com.example.investlab.model.entitys.UserResponse;
 
 import java.util.Map;
 import java.util.Optional;
 
 public interface UserInfoUsecase {
-    Optional<User> getUserInfo(String uuid);
+    UserResponse getUserInfo(String uuid);
     double getUserBalance(String uuid);
     Map<String, Map<String, Stock>> getUserWallets(String uuid);
 

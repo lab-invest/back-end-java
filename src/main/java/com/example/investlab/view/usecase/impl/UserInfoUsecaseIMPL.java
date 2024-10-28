@@ -3,6 +3,7 @@ package com.example.investlab.view.usecase.impl;
 import com.example.investlab.controller.mapper.StockMapper;
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
+import com.example.investlab.model.entitys.UserResponse;
 import com.example.investlab.model.repository.UserRepository;
 import com.example.investlab.view.client.BffClient;
 import com.example.investlab.view.exception.UserNotFoundException;
@@ -25,12 +26,23 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     private final UserRepository repository;
     private final WalletMapper walletMapper;
     @Override
-    public Optional<User> getUserInfo(String uuid) {
+    public UserResponse getUserInfo(String uuid) {
         this.updateUserRentability(uuid);
-        Optional<User> user = verifyUserService.getUser(uuid);
+        User user = verifyUserService.getUser(uuid).orElseThrow();
         var wallets = client.getWalletInfo(walletMapper.mapToWalletList(getUserWallets(uuid)));
-//        user.get().setWallets(wallets);
-        return user;
+        UserResponse response = UserResponse.builder()
+                .cpf(user.getCpf())
+                .uuid(user.getUuid())
+                .name(user.getName())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .birth_date(user.getBirth_date())
+                .balance(user.getBalance())
+                .wallets(wallets)
+                .rentability(user.getRentability())
+                .userPhoto(user.getUserPhoto())
+                .build();
+        return response;
     }
 
     @Override
