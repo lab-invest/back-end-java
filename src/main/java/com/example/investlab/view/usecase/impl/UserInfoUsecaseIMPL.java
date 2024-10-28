@@ -28,6 +28,8 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     public Optional<User> getUserInfo(String uuid) {
         this.updateUserRentability(uuid);
         Optional<User> user = verifyUserService.getUser(uuid);
+        var wallets = client.getWalletInfo(walletMapper.mapToWalletList(getUserWallets(uuid)));
+//        user.get().setWallets(wallets);
         return user;
     }
 
@@ -38,10 +40,10 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     }
 
     @Override
-    public Map<String, Map<String, Object>> getUserWallets(String uuid) {
+    public Map<String, Map<String, Stock>> getUserWallets(String uuid) {
         Optional<User> user = verifyUserService.getUser(uuid);
         var wallets = user.get().getWallets();
-        return walletMapper.mapWallets(wallets);
+        return wallets;
     }
 
     @Override

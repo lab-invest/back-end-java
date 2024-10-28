@@ -37,7 +37,7 @@ public class UserInfoController implements UserInfoContract {
 
     @Override
     @GetMapping("/wallets")
-    public ResponseEntity<Map<String, Map<String, Object>>> getUserWallets(@RequestParam String uuid) {
+    public ResponseEntity<Map<String, Map<String, Stock>>> getUserWallets(@RequestParam String uuid) {
         var user = userInfoUsecase.getUserWallets(uuid);
         return ResponseEntity.ok(user);
     }

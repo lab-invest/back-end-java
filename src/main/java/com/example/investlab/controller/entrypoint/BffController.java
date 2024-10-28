@@ -7,6 +7,7 @@ import com.example.investlab.view.client.BffClient;
 import com.example.investlab.view.client.response.*;
 import com.example.investlab.view.usecase.BuyStockUsecase;
 import com.example.investlab.view.usecase.UserInfoUsecase;
+import com.example.investlab.view.usecase.mapper.WalletMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class BffController {
 
     private final BffClient bffClient;
     private final StockMapper mapper;
+    private final WalletMapper walletMapper;
     private final UserInfoUsecase userInfoUsecase;
 
     @GetMapping("stock/cotation")
@@ -93,35 +95,15 @@ public class BffController {
             @RequestParam String uuid
     ) {
         var walletsList = userInfoUsecase.getUserWalletsComparison(uuid);
-        var response = bffClient.getWalletComparison(mapToWalletList(walletsList));
+        var response = bffClient.getWalletComparison(walletMapper.mapToWalletList(walletsList));
         return ResponseEntity.ok(response);
     }
 
-    public WalletList mapToWalletList(Map<String, Map<String, Stock>> source) {
-        WalletList walletList = new WalletList();
-        List<Wallet> wallets = new ArrayList<>();
-
-        for (Map.Entry<String, Map<String, Stock>> entry : source.entrySet()) {
-            String walletName = entry.getKey();
-            Map<String, Stock> stocksMap = entry.getValue();
-
-            Wallet wallet = new Wallet();
-            wallet.setName(walletName);
-
-            List<Stock> stocksWithSuffix = new ArrayList<>();
-            for (Stock stock : stocksMap.values()) {
-                Stock modifiedStock = new Stock();
-                modifiedStock.setTicker(stock.getTicker() + ".SA");
-                modifiedStock.setQuantity(stock.getQuantity());
-                modifiedStock.setAveragePrice(stock.getAveragePrice());
-                stocksWithSuffix.add(modifiedStock);
-            }
-
-            wallet.setItems(stocksWithSuffix);
-            wallets.add(wallet);
-        }
-
-        walletList.setWallets(wallets);
-        return walletList;
+    @GetMapping("stock")
+    public ResponseEntity<Object> findStock(
+            @RequestParam String ticker
+    ) {
+        var response = bffClient.findStock(ticker);
+        return ResponseEntity.ok(response);
     }
 }

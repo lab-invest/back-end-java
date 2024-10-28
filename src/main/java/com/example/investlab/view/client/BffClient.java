@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient(name = "BFF", url = "${bff.url}")
 public interface BffClient {
@@ -42,4 +43,10 @@ public interface BffClient {
 
     @PostMapping("/wallet/rentability")
     double updateWalletRentability(@RequestBody List<Stock> tickerList);
+
+    @PostMapping("/wallet/info")
+    Object getWalletInfo(@RequestBody WalletList walletList);
+
+    @GetMapping("/stock/findStock")
+    Object findStock(@RequestParam String stockName);
 }
