@@ -29,8 +29,12 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     public UserResponse getUserInfo(String uuid) {
         this.updateUserRentability(uuid);
         User user = verifyUserService.getUser(uuid).orElseThrow();
-        var wallets = client.getWalletInfo(walletMapper.mapToWalletList(getUserWallets(uuid)));
-        UserResponse response = UserResponse.builder()
+        Object wallets = user.getWallets();
+        System.out.println(wallets);
+        if (!user.getWallets().get("geral").isEmpty()){
+            wallets = client.getWalletInfo(walletMapper.mapToWalletList(getUserWallets(uuid)));
+        }
+        return UserResponse.builder()
                 .cpf(user.getCpf())
                 .uuid(user.getUuid())
                 .name(user.getName())
@@ -42,7 +46,6 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
                 .rentability(user.getRentability())
                 .userPhoto(user.getUserPhoto())
                 .build();
-        return response;
     }
 
     @Override
