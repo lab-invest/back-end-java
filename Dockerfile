@@ -16,6 +16,8 @@ COPY --from=build /target/investLab-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
+
+
 ##TODO: FEITO
 ##TODO - cotação de 8 ações mais famosas da bolsa - VALE, TRPL4, TAEE3, NEO3, TOTS3, GOAU4, KLBN11, PETR4 - 1
 ##TODO - Tela de previsão - 2
@@ -27,6 +29,8 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 #TODO - Adicionar id firebase no banco
 #TODO - Validar venda de ação -  setar 0 e tirar da lista
 ##TODO - tela de rentabilidade por carteira - gráfico - 5
+##TODO: Atualizar getUser
+##TODO: Função que o diniz ia fazer
 ##TODO - Tela da carteira - gráfico comparando as ações - 11
 #TODO - Adicionar na carteira expecífica - 3
 #TODO - Limpar perfil
