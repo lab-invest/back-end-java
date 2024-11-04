@@ -1,6 +1,7 @@
 package com.example.investlab.view.client;
 
 import com.example.investlab.model.entitys.Stock;
+import com.example.investlab.model.entitys.UserResponse;
 import com.example.investlab.view.client.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +46,7 @@ public interface BffClient {
     double updateWalletRentability(@RequestBody List<Stock> tickerList);
 
     @PostMapping("/wallet/info")
-    Object getWalletInfo(@RequestBody WalletList walletList);
+    UserResponse.Wallets getWalletInfo(@RequestBody WalletList walletList);
 
     @GetMapping("/stock/findStock")
     Object findStock(@RequestParam String stockName);

@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -27,6 +28,16 @@ public class UserInfoController implements UserInfoContract {
     public ResponseEntity<UserResponse> getUserInfo(@RequestParam String uuid) {
         var user = userInfoUsecase.getUserInfo(uuid);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/wallet")
+    public ResponseEntity<UserResponse.Wallet> getSpecificWallet(@RequestParam String uuid, @RequestParam String wallet) {
+        var user = userInfoUsecase.getUserInfo(uuid);
+        UserResponse.Wallet response = user.getWallets().getWallets().stream()
+                .filter(w -> w.getName().equals(wallet))
+                .findFirst()
+                .orElse(null);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
