@@ -50,6 +50,7 @@ public class UserResponse {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     public static class Item {
         private String ticker;
         private int quantity;
