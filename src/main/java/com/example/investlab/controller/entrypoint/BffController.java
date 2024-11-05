@@ -55,6 +55,7 @@ public class BffController {
             @RequestParam String ticker
     ) {
         var response = bffClient.getStockMarketplace(ticker);
+        response.sortHistoricalDataByDate();
         return ResponseEntity.ok(response);
     }
 
