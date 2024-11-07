@@ -46,5 +46,5 @@ public class User {
 
     private double rentability = 0;
 
-    private String userPhoto = ;
+    private String userPhoto;
 }
