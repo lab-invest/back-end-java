@@ -8,9 +8,9 @@ spring:
     name: investLab
   data:
     mongodb:
-      uri: mongodb://localhost:27017/InvestLab
-#      uri: mongodb+srv://investlab:investlab123@investlab.gphsjai.mongodb.net/InvestLab?retryWrites=true&w=majority
+#      uri: mongodb://localhost:27017/InvestLab
+      uri: mongodb+srv://investlab:investlab123@investlab.gphsjai.mongodb.net/InvestLab?retryWrites=true&w=majority
 
 bff:
-#  url: https://investlab-bff.onrender.com
-   url: localhost:8000
+  url: https://investlab-bff.onrender.com
+#   url: localhost:8000
