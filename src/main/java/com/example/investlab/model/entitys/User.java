@@ -16,6 +16,7 @@ import java.util.Calendar;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Document(collection = "Usuarios")
 public class User {
@@ -45,5 +46,5 @@ public class User {
 
     private double rentability = 0;
 
-    private String userPhoto;
+    private String userPhoto = ;
 }

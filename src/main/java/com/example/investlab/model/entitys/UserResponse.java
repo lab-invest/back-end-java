@@ -33,27 +33,5 @@ public class UserResponse {
         private List<Wallet> wallets;
     }
 
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Wallet {
-        private String name;
-        private double total;
-        private double rentability;
-        private List<Item> items;
-    }
 
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-    public static class Item {
-        private String ticker;
-        private int quantity;
-        private String stockImg;
-    }
 }

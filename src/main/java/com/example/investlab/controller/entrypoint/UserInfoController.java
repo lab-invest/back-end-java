@@ -4,6 +4,7 @@ import com.example.investlab.controller.contract.UserInfoContract;
 import com.example.investlab.model.entitys.Stock;
 import com.example.investlab.model.entitys.User;
 import com.example.investlab.model.entitys.UserResponse;
+import com.example.investlab.model.entitys.Wallet;
 import com.example.investlab.view.usecase.UserInfoUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,9 @@ public class UserInfoController implements UserInfoContract {
     }
 
     @GetMapping("/wallet")
-    public ResponseEntity<UserResponse.Wallet> getSpecificWallet(@RequestParam String uuid, @RequestParam String wallet) {
+    public ResponseEntity<Wallet> getSpecificWallet(@RequestParam String uuid, @RequestParam String wallet) {
         var user = userInfoUsecase.getUserInfo(uuid);
-        UserResponse.Wallet response = user.getWallets().getWallets().stream()
+        Wallet response = user.getWallets().getWallets().stream()
                 .filter(w -> w.getName().equals(wallet))
                 .findFirst()
                 .orElse(null);
