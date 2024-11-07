@@ -32,6 +32,4 @@ public class UserResponse {
     public static class Wallets {
         private List<Wallet> wallets;
     }
-
-
 }
