@@ -15,3 +15,5 @@ public class Wallet {
     private double rentability;
     private List<Item> items;
 }
+
+

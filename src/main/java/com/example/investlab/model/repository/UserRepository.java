@@ -14,6 +14,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
+    @Query("{'uuid':  ?0 }")
     Optional<User> findByUuid(String uuid);
 
     void deleteByUuid(String uuid);

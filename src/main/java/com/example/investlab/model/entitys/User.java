@@ -16,6 +16,7 @@ import java.util.Calendar;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Document(collection = "Usuarios")
 public class User {

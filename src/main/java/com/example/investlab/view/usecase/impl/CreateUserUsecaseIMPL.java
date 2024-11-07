@@ -18,7 +18,7 @@ public class CreateUserUsecaseIMPL implements CreateUserUsecase {
 
     @Override
     public void signIn(UserRequest userRequest) {
-        verifyUserService.userExists(userRequest.getEmail());
+        verifyUserService.userExists(userRequest.getUuid());
         var user = userDTO.toUser(userRequest);
         insertUserService.insertUser(user);
     }
