@@ -19,7 +19,7 @@ public class UserDTO {
                 .birth_date(userRequest.getBirthDate())
                 .balance(10000.0)
                 .wallets(new HashMap<>())
-                .userPhoto("teste")
+                .userPhoto("https://i.im.ge/2024/11/07/kvIgn6.Group-48095491.png")
                 .build();
     }
 }
