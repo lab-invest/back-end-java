@@ -60,6 +60,7 @@ public class BffController {
     }
 
     @GetMapping("stock/stockpage")
+    @Cacheable("stockPage")
     public ResponseEntity<StockPageResponse> getStockPage() {
         var stockPage = bffClient.getStockPage();
         return ResponseEntity.ok(stockPage);

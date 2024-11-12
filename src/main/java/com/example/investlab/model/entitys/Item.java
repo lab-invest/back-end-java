@@ -14,6 +14,4 @@ public class Item {
     private String ticker;
     private int quantity;
     private String stockImg;
-    private double rentability;
-    private double value;
 }

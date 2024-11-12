@@ -1,6 +1,8 @@
 spring:
   cache:
-    type: simple
+    type: caffeine
+    caffeine:
+      spec: "expireAfterWrite=600s"
   cloud:
     compatibility-verifier:
       enabled: false
