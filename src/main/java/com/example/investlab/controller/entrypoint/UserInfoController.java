@@ -7,6 +7,7 @@ import com.example.investlab.model.entitys.UserResponse;
 import com.example.investlab.model.entitys.Wallet;
 import com.example.investlab.view.usecase.UserInfoUsecase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class UserInfoController implements UserInfoContract {
 
     @Override
     @GetMapping
+    @Cacheable("user")
     public ResponseEntity<UserResponse> getUserInfo(@RequestParam String uuid) {
         var user = userInfoUsecase.getUserInfo(uuid);
         return new ResponseEntity<>(user, HttpStatus.OK);

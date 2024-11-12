@@ -29,6 +29,7 @@ public class UserInfoUsecaseIMPL implements UserInfoUsecase {
     public UserResponse getUserInfo(String uuid) {
         this.updateUserRentability(uuid);
         User user = verifyUserService.getUser(uuid).orElseThrow();
+        System.out.println(user);
         Object defaultWallets = user.getWallets();
         UserResponse.Wallets wallets = null;
         if (!user.getWallets().get("geral").isEmpty()){
